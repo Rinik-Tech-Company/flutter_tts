@@ -1,5 +1,22 @@
 # ChangeLog
 
+## 4.2.5+kpnovel.2
+
+- Adds Swift Package Manager support for iOS. Flutter 3.44 made SPM the default for iOS and macOS
+  native dependencies, and warns on every archive that a plugin without it will become an error.
+  The CocoaPods registry also becomes read-only on 2 December 2026.
+- The iOS sources move to `ios/flutter_tts/Sources/flutter_tts`, which is the layout SPM requires,
+  and `ios/flutter_tts.podspec` points at the new path so CocoaPods keeps working from the same
+  files. A plugin is expected to support both until further notice.
+- The Objective-C shim `FlutterTtsPlugin.h`/`.m` is rewritten in Swift under the same name. An SPM
+  target cannot hold both Objective-C and Swift, and that shim did nothing but forward registration
+  to `SwiftFlutterTtsPlugin`. Keeping the name means `pubspec.yaml` is unchanged and an app using
+  CocoaPods sees what it saw before.
+- Raises the iOS deployment target from 8.0 to 13.0 and the declared Swift version from 4.2 to 5.0,
+  both of which were long past anything Flutter supports.
+
+macOS is untouched and still CocoaPods only.
+
 ## 4.2.5+kpnovel.1
 
 A fork carried by Kpnovel, not an upstream release.
