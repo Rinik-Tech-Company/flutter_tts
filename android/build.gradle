@@ -3,8 +3,12 @@ def args = ["-Xlint:deprecation"]
 group 'com.eyedeadevelopment.fluttertts'
 version '1.0-SNAPSHOT'
 
+// Built-in Kotlin: the Android Gradle Plugin supplies Kotlin, so this plugin neither declares a
+// Kotlin Gradle Plugin on the classpath nor applies it. Flutter warns on every build of an app
+// using a plugin that applies KGP, and says future versions will fail rather than warn. Upstream
+// has four open pull requests doing this and no release since January 2026, which is why Kpnovel
+// carries the change itself. See docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin.
 buildscript {
-    ext.kotlin_version = '2.2.20'
     repositories {
         google()
         mavenCentral()
@@ -12,7 +16,6 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:8.13.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -28,7 +31,6 @@ project.getTasks().withType(JavaCompile).configureEach {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
     compileSdk 36
@@ -50,13 +52,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
-    }
 }
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+// Replaces the kotlinOptions block, which belonged to the Kotlin Gradle Plugin. The value is
+// unchanged: Java 11, matching compileOptions above.
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
+    }
 }
 repositories {
     mavenCentral()

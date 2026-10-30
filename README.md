@@ -1,3 +1,17 @@
+> **This is Kpnovel's fork of `flutter_tts`, not the upstream package.**
+>
+> It exists for one reason: upstream still applies the Kotlin Gradle Plugin in
+> `android/build.gradle`, Flutter warns about that on every Android build and says future versions
+> will fail rather than warn, and the fix has sat unmerged upstream since May 2026 with no release
+> since January 2026. This fork carries the migration to Flutter's built-in Kotlin and nothing else.
+>
+> The entire difference from upstream is `android/build.gradle`, two lines in `pubspec.yaml` and a
+> changelog entry. No Dart, Android, iOS, macOS, Web or Windows source is touched, so rebasing on a
+> future upstream release is a small job.
+>
+> If upstream merges one of the open migration pull requests and publishes, this fork should be
+> deleted and `kpnovel-app` pointed back at pub.dev. That is the goal, not a permanent arrangement.
+
 # Text To Speech
 
 [![pub package](https://img.shields.io/pub/v/flutter_tts.svg?style=for-the-badge&colorB=green)](https://pub.dartlang.org/packages/flutter_tts)

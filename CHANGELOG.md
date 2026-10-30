@@ -1,5 +1,19 @@
 # ChangeLog
 
+## 4.2.5+kpnovel.1
+
+A fork carried by Kpnovel, not an upstream release.
+
+- Migrates to Flutter's built-in Kotlin, so the plugin no longer applies the Kotlin Gradle Plugin.
+  Flutter warns on every Android build of an app using a plugin that applies KGP and states that
+  future versions will fail instead. Upstream has open issues from May 2026 and four open pull
+  requests doing this, none merged, and no release since 4.2.5 on 5 January 2026.
+- Updates the minimum supported SDK version to Flutter 3.44 / Dart 3.12, which built-in Kotlin
+  requires.
+
+Nothing in the Dart or platform code is changed. The whole fork is android/build.gradle and these
+two lines of metadata, so rebasing on an upstream release is a small job rather than a merge.
+
 ## 4.2.5
 
 ### Fixes
